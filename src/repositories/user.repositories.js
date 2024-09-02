@@ -17,15 +17,28 @@ const createUserRepository = (newUser) => {
       `INSERT INTO users (username, email, password, avatar)
       VALUES (?,?,?,?)`,
       [username, email, password, avatar],
-      (err) => {
+      function (err) {
         if (err) reject(err);
-        else resolve({ message: 'User created successfully'});
+        else resolve({id: this.lastID, ...newUser});
       }
     );
   });
 };
 
+const findUserByEmail = (email) => {
+  return new Promise((resolve, reject) => {
+    db.get(
+      `SELECT * FROM users WHERE email = ?`,
+      [email],
+      (err, row) => {
+        if (err) reject(err);
+        else resolve(row);
+      }
+    );
+  });
+}
 
 export default {
-  createUserRepository
+  createUserRepository,
+  findUserByEmail
 }
