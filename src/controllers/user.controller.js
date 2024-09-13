@@ -1,11 +1,12 @@
 import userService from "../services/user.service.js";
+import { loginService } from "../services/auth.service.js";
 
 const createUserController = async (req, res) => {
   const newUser = req.body;
 
   try {
-    const user = await userService.createUserService(newUser);
-    res.status(201).send({ user });
+    const token = await userService.createUserService(newUser);
+    res.status(201).send({ token });
   } catch (e) {
     return res.status(400).send(e.message);
   }
@@ -52,10 +53,22 @@ const deleteUserController = async (req, res) => {
   }
 };
 
+const loginUserController = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const token = await loginService(email, password);
+    res.send({ token });
+  } catch (e) {
+    return res.status(400).send(e.message);
+  }
+};
+
 export default {
   createUserController,
   getAllUsersController,
   findUserByIdController,
   updateUserController,
   deleteUserController,
+  loginUserController,
 };
