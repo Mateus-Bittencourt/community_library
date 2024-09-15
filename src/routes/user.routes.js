@@ -15,10 +15,7 @@ router.post(
   userController.createUserController
 );
 
-router.post(
-  "/users/login",
-  userController.loginUserController
-);
+router.post("/users/login", userController.loginUserController);
 
 router.use(authMiddleware);
 
@@ -33,6 +30,5 @@ router.delete(
   validateUserId,
   userController.deleteUserController
 );
-
 
 export default router;

@@ -68,9 +68,6 @@ const updateUserRepository = (id, user) => {
     query = query.slice(0, -1) + " WHERE id = ?";
     values.push(id);
 
-    console.log(`Query: ${query}`);
-    console.log(`Values: ${values}`);
-
     db.run(query, values, (err) => {
       if (err) reject(err);
       else resolve({ id, ...user });
