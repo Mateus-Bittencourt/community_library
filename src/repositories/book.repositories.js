@@ -62,9 +62,9 @@ const updateBookRepository = (id, book) => {
     query = query.slice(0, -1) + " WHERE id = ?";
     values.push(id);
 
-    db.run(query, values, (err) => {
+    db.run(query, values, function (err) {
       if (err) reject(err);
-      else resolve({ id, ...book });
+      else resolve({ book: this });
     });
   });
 };

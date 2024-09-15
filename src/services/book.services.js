@@ -1,4 +1,5 @@
 import bookRepository from "../repositories/book.repositories.js";
+import userRepository from "../repositories/user.repositories.js";
 
 async function createBookService(newBook, userId) {
   const createdBook = await bookRepository.createBookRepository(
@@ -23,6 +24,11 @@ async function updateBookService(bookId, updatedBook, userId) {
   if (!book) throw new Error("Book not found!");
 
   if (book.user_id !== userId) throw new Error("Unauthorized access");
+
+  if (userId){
+    const user  = userRepository.findOneByUserId(userId);
+    if (!user) throw new Error("User not found! Please send a valid userId!");
+  }
 
   return await bookRepository.updateBookRepository(bookId, updatedBook);
 }
