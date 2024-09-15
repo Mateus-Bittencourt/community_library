@@ -51,7 +51,6 @@ const updateBookRepository = (id, book) => {
     const values = [];
     if (book.userId) book["user_id"] = book.userId;
 
-
     fields.forEach((field) => {
       if (book[field] !== undefined) {
         query += ` ${field} = ?,`;
@@ -79,10 +78,24 @@ const deleteBookRepository = (id) => {
   });
 };
 
+const searchBookRepository = (queryString) => {
+  return new Promise((resolve, reject) => {
+    db.all(
+      `SELECT * FROM books WHERE title LIKE ? OR author LIKE ?`,
+      ["%" + queryString + "%", "%" + queryString + "%"],
+      (err, rows) => {
+        if (err) reject(err);
+        else resolve(rows);
+      }
+    );
+  });
+};
+
 export default {
   createBookRepository,
   findAllBooksRepository,
   finBookByIdRepository,
   updateBookRepository,
   deleteBookRepository,
+  searchBookRepository,
 };

@@ -67,10 +67,21 @@ async function deleteBookController(req, res) {
   }
 }
 
+async function searchBooksController(req, res) {
+  const {queryString} = req.query;
+  try {
+    const books = await bookService.searchBooksService(queryString);
+    res.send(books);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+}
+
 export default {
   createBookController,
   findAllBooksController,
   findBookByIdController,
   updateBookController,
   deleteBookController,
+  searchBooksController,
 };

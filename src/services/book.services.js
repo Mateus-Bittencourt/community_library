@@ -36,10 +36,16 @@ async function deleteBookService(bookId, userId) {
   return await bookRepository.deleteBookRepository(bookId);
 }
 
+const searchBooksService = async (queryString) =>
+  !queryString
+    ? await bookRepository.findAllBooksRepository()
+    : await bookRepository.searchBookRepository(queryString);
+
 export default {
   createBookService,
   findAllBooksService,
   findBookByIdService,
   updateBookService,
   deleteBookService,
+  searchBooksService,
 };
