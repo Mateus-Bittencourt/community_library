@@ -1,7 +1,7 @@
 import bookController from "../controllers/book.controller.js";
 import { Router } from "express";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
-import { validate, validateBookId } from "../middlewares/validation.middlewares.js";
+import { validate, validateId } from "../middlewares/validation.middlewares.js";
 import { bookSchema } from "../schema/book.schema.js";
 
 const router = Router();
@@ -14,9 +14,9 @@ router.post(
   bookController.createBookController
 );
 router.get("/books/search", bookController.searchBooksController);
-router.get("/books/:id", validateBookId, bookController.findBookByIdController);
-router.patch("/books/:id", validateBookId, bookController.updateBookController);
-router.delete("/books/:id", validateBookId, bookController.deleteBookController);
+router.get("/books/:id", validateId, bookController.findBookByIdController);
+router.patch("/books/:id", validateId, bookController.updateBookController);
+router.delete("/books/:id", validateId, bookController.deleteBookController);
 
 
 export default router;

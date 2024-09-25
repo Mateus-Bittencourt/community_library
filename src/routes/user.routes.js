@@ -2,7 +2,7 @@ import { Router } from "express";
 import userController from "../controllers/user.controller.js";
 import {
   validate,
-  validateUserId,
+  validateId,
 } from "../middlewares/validation.middlewares.js";
 import { userSchema } from "../schema/user.schema.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
@@ -21,13 +21,13 @@ router.use(authMiddleware);
 
 router.get("/users", userController.getAllUsersController);
 
-router.get("/users/:id", validateUserId, userController.findUserByIdController);
+router.get("/users/:id", validateId, userController.findUserByIdController);
 
-router.patch("/users/:id", validateUserId, userController.updateUserController);
+router.patch("/users/:id", validateId, userController.updateUserController);
 
 router.delete(
   "/users/:id",
-  validateUserId,
+  validateId,
   userController.deleteUserController
 );
 
