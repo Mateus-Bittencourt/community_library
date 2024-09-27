@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import 'dotenv/config.js';
 
-const transport = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: process.env.EMAIL,
@@ -9,7 +9,7 @@ const transport = nodemailer.createTransport({
   },
 });
 
-function sendEmail(email, bookTitle, dueDate) {
+export function sendEmail(email, bookTitle, dueDate) {
   const mailOptions = {
     from: process.env.EMAIL,
     to: email,
